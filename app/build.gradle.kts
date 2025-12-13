@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.nextfilm"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.nextfilm"
