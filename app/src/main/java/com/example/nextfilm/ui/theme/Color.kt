@@ -2,10 +2,17 @@ package com.example.nextfilm.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+// Primary HBO-style purple
+val PurplePrimary = Color(0xFF6A00FF)
+val PurpleSecondary = Color(0xFF9A4DFF)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+// Backgrounds
+val DarkBackground = Color(0xFF0E0B14)
+val DarkSurface = Color(0xFF1A1625)
+
+// Text colors
+val TextPrimary = Color(0xFFFFFFFF)
+val TextSecondary = Color(0xFFB3B3B3)
+
+// Accents
+val ErrorRed = Color(0xFFCF6679)
