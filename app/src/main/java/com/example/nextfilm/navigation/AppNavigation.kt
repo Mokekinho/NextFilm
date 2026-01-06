@@ -7,7 +7,11 @@ import androidx.navigation.compose.composable
 
 import androidx.navigation.compose.rememberNavController
 import com.example.nextfilm.ui.elements.Home
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
+
+
 
 @Composable
 fun AppNavigation( //Live templates
@@ -23,9 +27,15 @@ fun AppNavigation( //Live templates
         composable<HomeNav> {
             Home(modifier)
         }
+        composable<MovieNav> {
+            //Add the movie composable
+        }
     }
 }
 
 
 @Serializable
-object HomeNav
+object HomeNav // Is the screen that shows the moovies
+
+@Serializable
+data class MovieNav(val id: Int) // Is the screen that show the details of the movie

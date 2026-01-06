@@ -13,7 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.nextfilm.ui.MainScreen
 import com.example.nextfilm.ui.theme.NextFilmTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint // permite que a classe anotada por @HiltAndroidApp de dependenias pra essa activity
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
