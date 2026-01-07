@@ -25,7 +25,7 @@ fun AppNavigation( //Live templates
         startDestination = HomeNav
     ) {
         composable<HomeNav> {
-            Home(modifier)
+            Home(navController, modifier)
         }
         composable<MovieNav> {
             //Add the movie composable

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -15,6 +17,10 @@ android {
     namespace = "com.example.nextfilm"
     compileSdk = 36
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.example.nextfilm"
         minSdk = 30
@@ -23,6 +29,25 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val localProperties = Properties()
+        val localPropertiesFile = File(rootDir, "local.properties")
+        if(localPropertiesFile.exists() && localPropertiesFile.isFile){
+            localPropertiesFile.inputStream().use{
+                localProperties.load(it)
+            }
+        }
+        //println(">>> TMDB_API_KEY FROM GRADLE = ${localProperties.getProperty("TMDB_API_KEY")}")
+
+
+        val apiKey = localProperties.getProperty("TMDB_API_KEY")
+            ?: error("TMDB_API_KEY not found in local.properties")
+
+        buildConfigField(
+            "String",
+            "TMDB_API_KEY",
+            "\"$apiKey\""
+        )
     }
 
     buildTypes {
@@ -75,7 +100,7 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
-//    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 //    implementation("com.squareup.okhttp3:okhttp:5.3.0")
 //    implementation("com.squareup.okhttp3:logging-interceptor:5.3.0")
 
