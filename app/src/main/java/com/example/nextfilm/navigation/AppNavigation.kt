@@ -6,7 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.nextfilm.ui.elements.Home
+import com.example.nextfilm.ui.elements.MovieListFromTopic
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.serialization.Serializable
@@ -30,12 +32,22 @@ fun AppNavigation( //Live templates
         composable<MovieNav> {
             //Add the movie composable
         }
+        composable<MovieListNav>{
+            val args: MovieListNav = it.toRoute()
+            MovieListFromTopic(
+                args.topic,
+                navController,
+                modifier
+            )
+        }
     }
 }
-
 
 @Serializable
 object HomeNav // Is the screen that shows the moovies
 
 @Serializable
 data class MovieNav(val id: Int) // Is the screen that show the details of the movie
+
+@Serializable
+data class MovieListNav(val topic: String, )

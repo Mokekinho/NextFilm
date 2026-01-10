@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -22,8 +23,10 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.nextfilm.data.models.MoviesListEntry
+import com.example.nextfilm.navigation.MovieListNav
 import com.example.nextfilm.navigation.MovieNav
 import com.example.nextfilm.ui.state.HomeViewModel
+import com.example.nextfilm.ui.theme.TextSecondary
 import com.example.nextfilm.ui.util.MovieEntry
 import com.example.nextfilm.util.Constants.BASE_IMAGE_URL
 
@@ -32,9 +35,10 @@ import com.example.nextfilm.util.Constants.BASE_IMAGE_URL
 fun Home(
     navController: NavController,
     modifier: Modifier = Modifier,
+    homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
 
-    val entryList : List<MoviesListEntry> = listOf()
+    val entryList : List<MoviesListEntry> = emptyList()
 
     Column(
         modifier = modifier
@@ -53,6 +57,14 @@ fun Home(
                     navController = navController,
                 )
             }
+        }
+
+        Button(
+            onClick = {
+                navController.navigate(MovieListNav("Trending"))
+            }
+        ) {
+            Text("Trending")
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.nextfilm.data.repository
 
 import com.example.nextfilm.data.sources.remote.MovieApi
+import com.example.nextfilm.data.sources.remote.TimeWindow
 import com.example.nextfilm.data.sources.remote.responses.TrendingMovies
 import com.example.nextfilm.util.Resource
 import dagger.hilt.android.scopes.ActivityScoped
@@ -12,16 +13,15 @@ class MovieRepository @Inject constructor(
     private val api : MovieApi
 ) {
     suspend fun getTrendingMovieList(
-        apiKey: String,
-        timeWindow: String,
+        timeWindow: TimeWindow,
         page: Int,
-        language: String
+        language: String = "en-US",
     ): Resource<TrendingMovies> {
 
 
         val response = try {
             api.getTrendingMovieList(
-                timeWindow = timeWindow,
+                timeWindow = timeWindow.name.lowercase(),
                 page = page,
                 language = language,
             )

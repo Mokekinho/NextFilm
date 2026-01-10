@@ -1,19 +1,21 @@
 package com.example.nextfilm.data.sources.remote.responses
 
+import com.google.gson.annotations.SerializedName
+
 data class Result(
     val adult: Boolean,
-    val backdropPath: String,
-    val genreIds: List<Int>,
+    @SerializedName("backdrop_path") val backdropPath: String?,
+    @SerializedName("genre_ids") val genreIds: List<Int>,
     val id: Int,
-    val mediaType: String,
-    val originalLanguage: String,
-    val originalTitle: String,
+    @SerializedName("media_type") val mediaType: String?,
+    @SerializedName("original_language") val originalLanguage: String,
+    @SerializedName("original_title") val originalTitle: String?,
     val overview: String,
     val popularity: Double,
-    val posterPath: String,
-    val releaseDate: String,
-    val title: String,
+    @SerializedName("poster_path") val posterPath: String?,
+    @SerializedName("release_date") val releaseDate: String?,
+    val title: String?,
     val video: Boolean,
-    val voteAverage: Double,
-    val voteCount: Int
+    @SerializedName("vote_average") val voteAverage: Double,
+    @SerializedName("vote_count") val voteCount: Int
 )
