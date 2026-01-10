@@ -1,6 +1,6 @@
 package com.example.nextfilm.ui.elements
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,15 +11,21 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import com.example.nextfilm.data.models.MoviesListEntry
+import com.example.nextfilm.navigation.MovieNav
+import com.example.nextfilm.ui.state.HomeViewModel
+import com.example.nextfilm.ui.util.MovieEntry
+import com.example.nextfilm.util.Constants.BASE_IMAGE_URL
 
 
 @Composable
@@ -28,28 +34,7 @@ fun Home(
     modifier: Modifier = Modifier,
 ) {
 
-    val trendingMovies = listOf(
-        "Shrek",
-        "Tangled",
-        "The Super Mario Bros. Movie",
-        "Spider-Man: Across the Spider-Verse",
-        "Oppenheimer",
-        "Barbie",
-        "Dune: Part Two",
-        "Woody Woodpecker Goes to Camp",
-        "Kung Fu Panda 4",
-        "Inside Out 2",
-        "The Garfield Movie",
-        "Kingdom of the Planet of the Apes",
-        "Top Gun: Maverick",
-        "Avatar: The Way of Water",
-        "Puss in Boots: The Last Wish",
-        "Wonka",
-        "Fast X",
-        "The Batman",
-        "Elemental",
-        "Minions: The Rise of Gru"
-    )
+    val entryList : List<MoviesListEntry> = listOf()
 
     Column(
         modifier = modifier
@@ -62,29 +47,17 @@ fun Home(
         )
 
         LazyRow() {
-            items(trendingMovies){
-                Card(
-                    modifier = Modifier
-                        .height(200.dp)
-                        .width(140.dp)
-                    ,
-
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                        ,
-                        contentAlignment = Alignment.Center
-                    ){
-                        Text(it)
-                    }
-
-                }
-                Spacer(
-                    modifier = Modifier
-                        .size(5.dp)
+            items(entryList){
+                MovieEntry(
+                    entry = it,
+                    navController = navController,
                 )
             }
         }
     }
 }
+
+
+
+
+

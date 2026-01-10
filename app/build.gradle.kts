@@ -94,6 +94,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     // Hilt
+    implementation("androidx.hilt:hilt-navigation-compose:1.3.0")
     implementation("com.google.dagger:hilt-android:2.57.1")
     ksp("com.google.dagger:hilt-android-compiler:2.57.1")
 
@@ -103,5 +104,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 //    implementation("com.squareup.okhttp3:okhttp:5.3.0")
 //    implementation("com.squareup.okhttp3:logging-interceptor:5.3.0")
+
+    // Coil to Load Images
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
 }
