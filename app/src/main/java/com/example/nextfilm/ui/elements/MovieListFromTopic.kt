@@ -70,9 +70,12 @@ fun MovieListFromTopic(
                 //  Pagina quando tiver chegando perto do final da lista
                 //Log.d("Arquivo da Internet Ex:", "$movie")
                 if (
-                    index >= movieList.size - 4 && !isLoading && !endReached
+                    index >= movieList.size - 1 && !isLoading && !endReached // Erro estava aqui, com o -4 essa condição era verdadeira 4 vezes, os logs ajudaram a descobrir o erro
                 ) {
-                    viewModel.loadMoviePaginated()
+                    //Log.d("Chamada do loadMoviePaginated()", "isLoading=$isLoading")
+                    LaunchedEffect(index) { //TODO Estudar Side Effects.
+                        viewModel.loadMoviePaginated()
+                    }
                 }
                 MovieEntry(
                     movie,
