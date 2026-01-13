@@ -15,11 +15,14 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.nextfilm.data.models.MoviesListEntry
@@ -38,7 +41,11 @@ fun Home(
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
 
-    val entryList : List<MoviesListEntry> = emptyList()
+    //val entryList : List<MoviesListEntry> = emptyList()
+
+    val state by homeViewModel.state.collectAsStateWithLifecycle()
+
+    val trendingMoviesList = state.trendingList
 
     Column(
         modifier = modifier
@@ -51,7 +58,7 @@ fun Home(
         )
 
         LazyRow() {
-            items(entryList){
+            items(trendingMoviesList){
                 MovieEntry(
                     entry = it,
                     navController = navController,
@@ -59,12 +66,12 @@ fun Home(
             }
         }
 
-        Button(
+        TextButton(
             onClick = {
                 navController.navigate(MovieListNav("Trending"))
             }
         ) {
-            Text("Trending")
+            Text("See All Trending Movies")
         }
     }
 }

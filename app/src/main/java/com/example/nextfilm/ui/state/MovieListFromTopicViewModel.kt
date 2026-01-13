@@ -43,7 +43,6 @@ class MovieListFromTopicViewModel @Inject constructor(
         //if (_state.value.isLoading || _state.value.endReached) return // vou retornar pq o compose pode demorar a se recompor. // não vou usar mas manter a logica na viewmodel é melhor
         //TODO Estudar como funcia a recomposição no Compose
 
-        //Log.d(logTag, "Carregando a pagina=$currentPage e isLoading=${_state.value.isLoading}")
         viewModelScope.launch {
 
             _state.update {
@@ -66,6 +65,8 @@ class MovieListFromTopicViewModel @Inject constructor(
                             error = null,
                             endReached = currentPage >= result.data!!.totalPages,
                             movieList = it.movieList + result.data.results.map{ res ->
+
+                                Log.d(logTag, "Mapeando o filme =${res.title}")
                                 MoviesListEntry(
                                     res.title ?: "",
                                     res.posterPath?: "",

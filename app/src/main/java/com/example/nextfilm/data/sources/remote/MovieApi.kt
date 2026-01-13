@@ -10,8 +10,9 @@ import retrofit2.http.Query
 interface MovieApi {
 
     //aqui a gente passa apenas o caminho mediano, a gente vai definir um caminho completo mais rpa frente, a saber, https://api.themoviedb.org/3/
-    @GET("trending/movie/{time_window}")
+    @GET("trending/{category}/{time_window}")
     suspend fun getTrendingMovieList(
+        @Path("category") category: String = "all",
         @Path("time_window") timeWindow: String,
         @Query("page") page: Int,
         @Query("language") language: String,

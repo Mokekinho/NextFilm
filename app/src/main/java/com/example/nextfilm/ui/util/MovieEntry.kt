@@ -31,7 +31,6 @@ fun MovieEntry(
     Card(
         modifier = modifier
             .padding(5.dp)
-            .fillMaxSize()
             .clickable(
                 onClick = {
                     navController.navigate(
@@ -46,7 +45,6 @@ fun MovieEntry(
         ) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
             ,
             contentAlignment = Alignment.Center
         ){
@@ -54,7 +52,6 @@ fun MovieEntry(
                 model = BASE_IMAGE_URL + entry.imageUrl,
                 contentDescription = "Poster of movie: ${entry.movieName}",
                 modifier = Modifier
-                    .fillMaxSize()
             ) // pra colocar mensagem de loading tem que usar a função SubcomposeAsyncImage
         }
 
