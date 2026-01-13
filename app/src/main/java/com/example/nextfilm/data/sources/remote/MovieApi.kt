@@ -2,8 +2,8 @@ package com.example.nextfilm.data.sources.remote
 
 
 import com.example.nextfilm.BuildConfig
-import com.example.nextfilm.data.sources.remote.responses.details.movie.MovieDetails
-import com.example.nextfilm.data.sources.remote.responses.details.tv.TvDetails
+import com.example.nextfilm.data.sources.remote.responses.details.movie.MovieDetailsResponse
+import com.example.nextfilm.data.sources.remote.responses.details.tv.TvDetailsResponse
 import com.example.nextfilm.data.sources.remote.responses.entry.TrendingMovies
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -27,14 +27,14 @@ interface MovieApi {
         @Path("id") id: Int,
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-    ): MovieDetails
+    ): MovieDetailsResponse
 
     @GET("tv/{id}")
     suspend fun getTvDetails(
         @Path("id") id: Int,
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-    ): TvDetails
+    ): TvDetailsResponse
 }
 
 enum class TimeWindow{

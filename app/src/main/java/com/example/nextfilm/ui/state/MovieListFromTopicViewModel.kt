@@ -3,7 +3,7 @@ package com.example.nextfilm.ui.state
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nextfilm.data.models.MoviesListEntry
+import com.example.nextfilm.data.models.MediaListEntry
 import com.example.nextfilm.data.repository.MovieRepository
 import com.example.nextfilm.data.sources.remote.TimeWindow
 import com.example.nextfilm.util.Resource
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 
 data class MovieListFromTopicState(
-    val movieList: List<MoviesListEntry> = emptyList(),
+    val movieList: List<MediaListEntry> = emptyList(),
     val timeWindow: TimeWindow = TimeWindow.DAY,
     val error: String? = null,
     val isLoading: Boolean = false,
@@ -67,10 +67,11 @@ class MovieListFromTopicViewModel @Inject constructor(
                             movieList = it.movieList + result.data.results.map{ res ->
 
                                 Log.d(logTag, "Mapeando o filme =${res.title}")
-                                MoviesListEntry(
+                                MediaListEntry(
                                     res.title ?: "",
                                     res.posterPath?: "",
-                                    res.id
+                                    res.id,
+                                    mediaType = res.mediaType ?: ""
                                 )
                             }
                         )

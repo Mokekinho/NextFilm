@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.nextfilm.data.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import com.example.nextfilm.data.models.MoviesListEntry
+import com.example.nextfilm.data.models.MediaListEntry
 import com.example.nextfilm.data.sources.remote.TimeWindow
 import com.example.nextfilm.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 
 data class HomeState(
-    val trendingList: List<MoviesListEntry> = emptyList(),
+    val trendingList: List<MediaListEntry> = emptyList(),
     val timeWindow: TimeWindow = TimeWindow.DAY,
     val error: String? = null,
     val isLoading: Boolean = false,
@@ -41,6 +41,7 @@ class HomeViewModel @Inject constructor(
             _state.update {
                 it.copy(
                     isLoading = true,
+                    error = null
                 )
             }
             val result = repository.getTrendingMediaList(
@@ -59,10 +60,11 @@ class HomeViewModel @Inject constructor(
                             trendingList = it.trendingList + result.data!!.results.map { res ->
 
                                 Log.d(logTag, "Mapeando o filme =${res.title}")
-                                MoviesListEntry(
+                                MediaListEntry(
                                     res.title ?: "",
                                     res.posterPath ?: "",
-                                    res.id
+                                    res.id,
+                                    mediaType = res.mediaType?: ""
                                 )
                             }
                         )

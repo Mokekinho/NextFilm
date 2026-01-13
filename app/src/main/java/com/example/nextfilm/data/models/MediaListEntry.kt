@@ -1,7 +1,8 @@
 package com.example.nextfilm.data.models
 
-data class MoviesListEntry(
+data class MediaListEntry(
     val movieName: String,
     val imageUrl: String,
-    val id: Int
+    val id: Int,
+    val mediaType: String
 )

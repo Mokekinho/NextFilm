@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.nextfilm.ui.elements.Home
 import com.example.nextfilm.ui.elements.MovieListFromTopic
+import com.example.nextfilm.ui.elements.details.MovieDetails
 import kotlinx.serialization.Serializable
 
 
@@ -28,6 +29,12 @@ fun AppNavigation( //Live templates
             Home(navController, modifier)
         }
         composable<MovieDetailsNav> {
+            val args: MovieDetailsNav = it.toRoute()
+            MovieDetails(
+                args.id,
+                navController,
+                modifier
+            )
             //Add the movie composable
         }
         composable<TvDetailsNav> {

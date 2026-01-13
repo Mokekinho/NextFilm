@@ -2,8 +2,8 @@ package com.example.nextfilm.data.repository
 
 import com.example.nextfilm.data.sources.remote.MovieApi
 import com.example.nextfilm.data.sources.remote.TimeWindow
-import com.example.nextfilm.data.sources.remote.responses.details.movie.MovieDetails
-import com.example.nextfilm.data.sources.remote.responses.details.tv.TvDetails
+import com.example.nextfilm.data.sources.remote.responses.details.movie.MovieDetailsResponse
+import com.example.nextfilm.data.sources.remote.responses.details.tv.TvDetailsResponse
 import com.example.nextfilm.data.sources.remote.responses.entry.TrendingMovies
 import com.example.nextfilm.util.Resource
 import dagger.hilt.android.scopes.ActivityScoped
@@ -43,7 +43,7 @@ class MovieRepository @Inject constructor(
     suspend fun getMovieDetails(
         id:  Int,
         language: String = "en-US"
-    ) : Resource<MovieDetails> {
+    ) : Resource<MovieDetailsResponse> {
 
         val response = try{
             api.getMovieDetails(
@@ -67,7 +67,7 @@ class MovieRepository @Inject constructor(
     suspend fun getTvDetails(
         id:  Int,
         language: String = "en-US"
-    ) : Resource<TvDetails> {
+    ) : Resource<TvDetailsResponse> {
 
         val response = try{
             api.getTvDetails(
