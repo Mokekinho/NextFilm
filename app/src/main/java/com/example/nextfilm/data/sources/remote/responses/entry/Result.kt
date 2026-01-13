@@ -1,4 +1,4 @@
-package com.example.nextfilm.data.sources.remote.responses
+package com.example.nextfilm.data.sources.remote.responses.entry
 
 import com.google.gson.annotations.SerializedName
 

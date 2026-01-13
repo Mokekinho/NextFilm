@@ -43,7 +43,7 @@ class HomeViewModel @Inject constructor(
                     isLoading = true,
                 )
             }
-            val result = repository.getTrendingMovieList(
+            val result = repository.getTrendingMediaList(
                 timeWindow = _state.value.timeWindow,
                 page = 1,
             )
