@@ -20,13 +20,16 @@ fun MainScreen(
         Scaffold(
             modifier = modifier
                 .fillMaxSize()
-                .padding(horizontal = 10.dp)
             ,
 
             ) {
+            it // vou escrever isso aqui pro nao ter que usar o padding
+
             AppNavigation(
                 modifier = Modifier
-                    .padding(it)
+                    //.padding(it)
+                    .padding(horizontal = 10.dp)
+            //por padrao ele ja tem padding pra nao ficar em baixo da camera
             )
         }
     }
