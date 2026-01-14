@@ -9,5 +9,5 @@ data class MovieDetails(
     val backdropUrl: String,
     val genres: List<Genre>,
     val homePageUrl: String,
-
+    val releaseYear: String,
 )

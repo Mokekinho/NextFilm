@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 data class MovieDetailsState(
     val movieDetails: MovieDetails? = null,
@@ -53,7 +54,8 @@ class MovieDetailsViewModel @Inject constructor(
                                 posterUrl = data.poster_path,
                                 backdropUrl = data.backdrop_path,
                                 genres = data.genres,
-                                homePageUrl = data.homepage
+                                homePageUrl = data.homepage,
+                                releaseYear = LocalDate.parse(data.release_date).year.toString()
                             )
                         )
                     }

@@ -26,16 +26,16 @@ val Typography = Typography(
     ),
 
     bodyLarge = TextStyle(
-        fontSize = 16.sp
+        fontSize = 14.sp
     ),
 
     bodyMedium = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 12.sp,
         color = TextSecondary
     ),
 
     labelMedium = TextStyle(
-        fontSize = 12.sp,
+        fontSize = 10.sp,
         fontWeight = FontWeight.Medium
     )
 )
