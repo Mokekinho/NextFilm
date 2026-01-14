@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.nextfilm.data.models.MediaListEntry
 import com.example.nextfilm.navigation.MovieDetailsNav
+import com.example.nextfilm.navigation.TvDetailsNav
 
 import com.example.nextfilm.util.Constants.BASE_IMAGE_URL
 import com.example.nextfilm.util.Constants.IMAGE_FORMAT_W500
@@ -30,11 +31,18 @@ fun MovieEntry(
             .padding(5.dp)
             .clickable(
                 onClick = {
-                    navController.navigate(
-                        MovieDetailsNav(
-                            entry.id
+                    when(entry.mediaType){
+                        "tv" -> navController.navigate(
+                            TvDetailsNav(
+                                entry.id
+                            )
                         )
-                    )
+                        "movie" -> navController.navigate(
+                            MovieDetailsNav(
+                                entry.id
+                            )
+                        )
+                    }
                 }
             )
         ,

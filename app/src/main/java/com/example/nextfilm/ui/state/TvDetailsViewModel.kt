@@ -2,7 +2,7 @@ package com.example.nextfilm.ui.state
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nextfilm.data.models.MovieDetails
+import com.example.nextfilm.data.models.TvDetails
 import com.example.nextfilm.data.repository.MovieRepository
 import com.example.nextfilm.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,19 +14,19 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
-data class MovieDetailsState(
-    val movieDetails: MovieDetails? = null,
+data class TvDetailsState(
+    val tvDetails: TvDetails? = null,
     val error: String? = null,
     val isLoading: Boolean = false
 )
 
 @HiltViewModel
-class MovieDetailsViewModel @Inject constructor(
+class TvDetailsViewModel @Inject constructor(
     private val repository: MovieRepository
 ): ViewModel(){
 
-    private val _state = MutableStateFlow(MovieDetailsState())
-    val state: StateFlow<MovieDetailsState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(TvDetailsState())
+    val state: StateFlow<TvDetailsState> = _state.asStateFlow()
 
 
     fun loadDetails(
@@ -40,21 +40,25 @@ class MovieDetailsViewModel @Inject constructor(
                 )
             }
 
-            when(val result = repository.getMovieDetails(id)){
+            when(val result = repository.getTvDetails(id)){
                 is Resource.Success<*> ->{
                     val data = result. data
                     _state.update {
                         it.copy(
                             isLoading = false,
                             error = null,
-                            movieDetails = MovieDetails(
-                                name = data!!.title,
+                            tvDetails = TvDetails(
+                                name = data!!.name,
                                 overview = data.overview,
                                 posterUrl = data.poster_path,
                                 backdropUrl = data.backdrop_path,
                                 genres = data.genres,
                                 homePageUrl = data.homepage,
-                                releaseYear = LocalDate.parse(data.release_date).year.toString()
+                                firstEpisodeYear = LocalDate.parse(data.first_air_date).year.toString(),
+                                numberOfSeasons = data.number_of_seasons,
+                                numberOfEpisodes = data.number_of_episodes,
+                                lastEpisodeYear = LocalDate.parse(data.last_air_date).year.toString(),
+                                seasons = data.seasons
                             )
                         )
                     }
