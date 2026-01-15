@@ -10,4 +10,5 @@ data class MovieDetails(
     val genres: List<Genre>,
     val homePageUrl: String,
     val releaseYear: String,
+    val runtime: String,
 )

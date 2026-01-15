@@ -17,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -230,10 +231,16 @@ fun SeasonCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
+        ,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+            ,
+            //verticalAlignment = Alignment.CenterVertically
         ) {
             AsyncImage(
                 model = BASE_IMAGE_URL + IMAGE_FORMAT_W200 + season.poster_path,

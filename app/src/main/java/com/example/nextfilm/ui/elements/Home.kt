@@ -49,6 +49,8 @@ fun Home(
     val state by homeViewModel.state.collectAsStateWithLifecycle()
 
     val trendingMoviesList = state.trendingList
+    val popularMovieList = state.popularMovieList
+    val topRatedMovieList = state.topRatedMovieList
 
     //val scrollState = rememberScrollState()
 
@@ -72,7 +74,7 @@ fun Home(
                 modifier = Modifier
                     .fillMaxWidth()
                     //.fillMaxHeight(0.7f) não funciona pq em Scrolls não se sabe o valor maximo
-                    .height(550.dp)
+                    .height(700.dp)
             ) { pageIndex ->
                 ImageBoxEntry(
                     entry = trendingMoviesList[pageIndex],
@@ -80,21 +82,49 @@ fun Home(
                 )
             }
         }
+        // Ja coloquei no carrossel, não vou por de novo
+//        item {
+//            Column(
+//                modifier = modifier //agora sim vou usar o padding que esta sendo passado
+//                    .fillMaxSize()
+//            ) {
+//
+//                Text(
+//                    text = "Trending",
+//                    style = MaterialTheme.typography.headlineMedium
+//                )
+//
+//                LazyRow() {
+//                    items(trendingMoviesList) {
+//                        MovieEntry(
+//                            entry = it,
+//                            navController = navController,
+//                        )
+//                    }
+//                }
+//
+//                TextButton(
+//                    onClick = {
+//                        navController.navigate(MovieListNav("Trending"))
+//                    }
+//                ) {
+//                    Text("See All Trending Movies")
+//                }
+//            }
+//        }
         item {
-
-
             Column(
                 modifier = modifier //agora sim vou usar o padding que esta sendo passado
                     .fillMaxSize()
             ) {
 
                 Text(
-                    text = "Trending",
-                    style = MaterialTheme.typography.displaySmall
+                    text = "Popular",
+                    style = MaterialTheme.typography.headlineMedium
                 )
 
                 LazyRow() {
-                    items(trendingMoviesList) {
+                    items(popularMovieList) {
                         MovieEntry(
                             entry = it,
                             navController = navController,
@@ -104,10 +134,39 @@ fun Home(
 
                 TextButton(
                     onClick = {
-                        navController.navigate(MovieListNav("Trending"))
+                        //navController.navigate(MovieListNav("Trending")) //TODO, Criar a tela que carrega varios filmes populares
                     }
                 ) {
-                    Text("See All Trending Movies")
+                    Text("See All Popular Movies")
+                }
+            }
+        }
+        item {
+            Column(
+                modifier = modifier //agora sim vou usar o padding que esta sendo passado
+                    .fillMaxSize()
+            ) {
+
+                Text(
+                    text = "Top Rated",
+                    style = MaterialTheme.typography.headlineMedium
+                )
+
+                LazyRow() {
+                    items(topRatedMovieList) {
+                        MovieEntry(
+                            entry = it,
+                            navController = navController,
+                        )
+                    }
+                }
+
+                TextButton(
+                    onClick = {
+                        //navController.navigate(MovieListNav("Trending")) //TODO, Criar a tela que carrega varios filmes mais avaliados
+                    }
+                ) {
+                    Text("See All Top Rated Movies")
                 }
             }
         }

@@ -39,6 +39,53 @@ class MovieRepository @Inject constructor(
             data = response
         )
     }
+    suspend fun getPopularMovieList(
+        page: Int,
+        language: String = "en-US",
+    ): Resource<TrendingMovies> {
+
+
+        val response = try {
+            api.getPopularMovies(
+                page = page,
+                language = language,
+            )
+        }
+        catch (e: Exception){
+            return Resource.Error(
+                data = null,
+                message = "An Error Occurred:" + e.message.toString()
+            )
+        }
+
+        return Resource.Success(
+            data = response
+        )
+    }
+
+    suspend fun getTopRatedMovieList(
+        page: Int,
+        language: String = "en-US",
+    ): Resource<TrendingMovies> {
+
+
+        val response = try {
+            api.getTopRatedMovies(
+                page = page,
+                language = language,
+            )
+        }
+        catch (e: Exception){
+            return Resource.Error(
+                data = null,
+                message = "An Error Occurred:" + e.message.toString()
+            )
+        }
+
+        return Resource.Success(
+            data = response
+        )
+    }
 
     suspend fun getMovieDetails(
         id:  Int,

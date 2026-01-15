@@ -99,11 +99,23 @@ fun MovieDetails(
 
             ) {
                 DefaultVerticalSpacer()
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                    ,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = movieDetails.runtime,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                    DefaultHorizontalSpacer()
+                    Text(
+                        text = movieDetails.releaseYear,
+                        style = MaterialTheme.typography.bodyLarge
+                    )
+                }
 
-                Text(
-                    text = movieDetails.releaseYear,
-                    style = MaterialTheme.typography.bodyLarge
-                )
 
                 DefaultVerticalSpacer()
 

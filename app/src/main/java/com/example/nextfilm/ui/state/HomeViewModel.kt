@@ -18,6 +18,8 @@ import kotlinx.coroutines.launch
 
 data class HomeState(
     val trendingList: List<MediaListEntry> = emptyList(),
+    val popularMovieList: List<MediaListEntry> = emptyList(),
+    val topRatedMovieList: List<MediaListEntry> = emptyList(),
     val timeWindow: TimeWindow = TimeWindow.DAY,
     val error: String? = null,
     val isLoading: Boolean = false,
@@ -33,10 +35,13 @@ class HomeViewModel @Inject constructor(
     val state: StateFlow<HomeState> = _state.asStateFlow()
 
     init {
-        loadMoviePaginated()// carrega as primeiras
+        //TODO Criar uma função que carrega todas as listas, essa função deve ser responsavel por gerenciar os erros e os isLoading.
+        loadTrendingList()// carrega as primeiras
+        loadPopularMovieList()
+        loadTopRatedMovieList()
     }
 
-    fun loadMoviePaginated() {
+    fun loadTrendingList() {
         viewModelScope.launch {
             _state.update {
                 it.copy(
@@ -65,6 +70,112 @@ class HomeViewModel @Inject constructor(
                                     res.posterPath ?: "",
                                     res.id,
                                     mediaType = res.mediaType?: ""
+                                )
+                            }
+                        )
+                    }
+
+
+                }
+
+                is Resource.Error -> {
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = result.message
+                        )
+                    }
+                }
+
+                is Resource.Loading -> {// nao faz nada por que sim, nao vai ser util }
+                }
+
+            }
+
+        }
+
+    }
+    fun loadPopularMovieList() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isLoading = true,
+                    error = null
+                )
+            }
+            val result = repository.getPopularMovieList(
+                page = 1,
+            )
+
+            when (result) {
+
+                is Resource.Success -> {
+
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = null,
+                            popularMovieList = it.popularMovieList + result.data!!.results.map { res ->
+
+                                Log.d(logTag, "Mapeando o filme =${res.title}")
+                                MediaListEntry(
+                                    res.title ?: "",
+                                    res.posterPath ?: "",
+                                    res.id,
+                                    mediaType = "movie"
+                                )
+                            }
+                        )
+                    }
+
+
+                }
+
+                is Resource.Error -> {
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = result.message
+                        )
+                    }
+                }
+
+                is Resource.Loading -> {// nao faz nada por que sim, nao vai ser util }
+                }
+
+            }
+
+        }
+
+    }
+    fun loadTopRatedMovieList() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(
+                    isLoading = true,
+                    error = null
+                )
+            }
+            val result = repository.getTopRatedMovieList(
+                page = 1,
+            )
+
+            when (result) {
+
+                is Resource.Success -> {
+
+                    _state.update {
+                        it.copy(
+                            isLoading = false,
+                            error = null,
+                            topRatedMovieList = it.topRatedMovieList + result.data!!.results.map { res ->
+
+                                Log.d(logTag, "Mapeando o filme =${res.title}")
+                                MediaListEntry(
+                                    res.title ?: "",
+                                    res.posterPath ?: "",
+                                    res.id,
+                                    mediaType = "movie"
                                 )
                             }
                         )

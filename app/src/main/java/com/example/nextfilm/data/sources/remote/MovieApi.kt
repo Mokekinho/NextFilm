@@ -22,6 +22,21 @@ interface MovieApi {
     // aqui a gente tem que ficar de olho nos Query paramethers da API, no caso da que eu to usando ele sempre retorna 20 filmes por pagina, o que da pra mexer aqui é na linguagem
     ): TrendingMovies
 
+    @GET("movie/popular") // tem o Tv popular também
+    suspend fun getPopularMovies(
+        @Query("page") page: Int,
+        @Query("language") language: String,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+    ): TrendingMovies
+
+    @GET("movie/top_rated") // tem o Tv popular também
+    suspend fun getTopRatedMovies(
+        @Query("page") page: Int,
+        @Query("language") language: String,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+    ): TrendingMovies
+
+
     @GET("movie/{id}")
     suspend fun getMovieDetails(
         @Path("id") id: Int,
@@ -35,6 +50,8 @@ interface MovieApi {
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
     ): TvDetailsResponse
+
+
 }
 
 enum class TimeWindow{

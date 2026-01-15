@@ -54,7 +54,8 @@ class MovieDetailsViewModel @Inject constructor(
                                 backdropUrl = data.backdrop_path,
                                 genres = data.genres,
                                 homePageUrl = data.homepage,
-                                releaseYear = LocalDate.parse(data.release_date).year.toString()
+                                releaseYear = LocalDate.parse(data.release_date).year.toString(),
+                                runtime = (data.runtime/60).toString() + "h " + (data.runtime%60).toString() + "m"
                             )
                         )
                     }
