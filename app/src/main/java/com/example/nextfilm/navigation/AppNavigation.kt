@@ -2,11 +2,14 @@ package com.example.nextfilm.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.example.nextfilm.ui.MainScreen
 import com.example.nextfilm.ui.elements.Home
 import com.example.nextfilm.ui.elements.MovieListFromTopic
 import com.example.nextfilm.ui.elements.details.MovieDetails
@@ -17,10 +20,9 @@ import kotlinx.serialization.Serializable
 
 @Composable
 fun AppNavigation( //Live templates
+    navController : NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val navController = rememberNavController()
-
 
     NavHost(
         navController = navController,
@@ -28,6 +30,12 @@ fun AppNavigation( //Live templates
     ) {
         composable<HomeNav> {
             Home(navController, modifier)
+        }
+        composable<TvNav> {
+
+        }
+        composable<MovieNav> {
+
         }
         composable<MovieDetailsNav> {
             val args: MovieDetailsNav = it.toRoute()
@@ -61,9 +69,18 @@ fun AppNavigation( //Live templates
 object HomeNav // Is the screen that shows the moovies
 
 @Serializable
+object MovieNav
+
+@Serializable
+object TvNav
+@Serializable
 data class MovieDetailsNav(val id: Int) // Is the screen that show the details of the movie
 
 @Serializable
 data class TvDetailsNav(val id: Int)
 @Serializable
 data class MovieListNav(val topic: String, )
+
+@Serializable
+object MainScreenNav
+

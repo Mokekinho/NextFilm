@@ -3,24 +3,30 @@ package com.example.nextfilm.ui.elements
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -30,11 +36,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.nextfilm.navigation.MovieListNav
+import com.example.nextfilm.ui.elements.details.DefaultVerticalSpacer
 import com.example.nextfilm.ui.state.HomeViewModel
 import com.example.nextfilm.ui.util.ImageBoxEntry
 import com.example.nextfilm.ui.util.MovieEntry
 import com.example.nextfilm.util.Constants.BASE_IMAGE_URL
 import com.example.nextfilm.util.Constants.IMAGE_FORMAT_ORIGINAL
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -67,19 +75,53 @@ fun Home(
                 trendingMoviesList.size
             }
 
-            //Meu carrossel em tela maxima
+            // TODO Estudar uma maneira melhor de fazer isso ficou cortando no meio em alguns
+//            LaunchedEffect(pagerState.currentPage) { // o timer reinicia toda vez que muda, etão se o usario mexer timer reinicia
+//                delay(7_000)
+//
+//                val nextPage =
+//                    if (pagerState.currentPage + 1 < pagerState.pageCount)
+//                        pagerState.currentPage + 1
+//                    else
+//                        0
+//
+//                pagerState.animateScrollToPage(nextPage)
+//            }
 
-            HorizontalPager(
-                pagerState,
+            //Meu carrossel em tela máxima
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    //.fillMaxHeight(0.7f) não funciona pq em Scrolls não se sabe o valor maximo
-                    .height(700.dp)
-            ) { pageIndex ->
-                ImageBoxEntry(
-                    entry = trendingMoviesList[pageIndex],
-                    navController = navController,
-                )
+            ) {
+                HorizontalPager(
+                    pagerState,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        //.fillMaxHeight(0.7f) não funciona pq em Scrolls não se sabe o valor maximo
+                        .height(700.dp)
+                ) { pageIndex ->
+
+                    ImageBoxEntry(
+                        entry = trendingMoviesList[pageIndex],
+                        navController = navController,
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                ) {
+                    repeat(pagerState.pageCount) { iteration ->
+                        val color =
+                            if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+                        Box(
+                            modifier = Modifier
+                                .padding(3.dp)
+                                .clip(CircleShape)
+                                .background(color)
+                                .size(10.dp)
+                        )
+                    }
+                }
             }
         }
         // Ja coloquei no carrossel, não vou por de novo
@@ -113,6 +155,7 @@ fun Home(
 //            }
 //        }
         item {
+            DefaultVerticalSpacer()
             Column(
                 modifier = modifier //agora sim vou usar o padding que esta sendo passado
                     .fillMaxSize()
