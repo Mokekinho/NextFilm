@@ -57,7 +57,7 @@ class TvDetailsViewModel @Inject constructor(
                                 firstEpisodeYear = LocalDate.parse(data.first_air_date).year.toString(),
                                 numberOfSeasons = data.number_of_seasons,
                                 numberOfEpisodes = data.number_of_episodes,
-                                lastEpisodeYear = LocalDate.parse(data.last_air_date).year.toString(),
+                                lastEpisodeYear = null, //Todo pensar em uma forma pra caso seja null os argumentos
                                 seasons = data.seasons
                             )
                         )

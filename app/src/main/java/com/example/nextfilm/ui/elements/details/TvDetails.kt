@@ -62,6 +62,8 @@ fun TvDetails(
             Box(
                 modifier = modifier
                     .fillMaxSize()
+                ,
+                contentAlignment = Alignment.Center
             ){
                 CircularProgressIndicator()
             }

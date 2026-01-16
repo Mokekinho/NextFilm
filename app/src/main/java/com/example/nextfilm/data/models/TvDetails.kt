@@ -13,7 +13,7 @@ data class TvDetails(
     val firstEpisodeYear: String,
 
     val numberOfEpisodes: Int,
-    val lastEpisodeYear: String,
+    val lastEpisodeYear: String?,
     val numberOfSeasons: Int,
     val seasons: List<Season>,
 

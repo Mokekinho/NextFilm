@@ -1,5 +1,7 @@
 package com.example.nextfilm.ui.state
 
+package com.example.nextfilm.ui.state
+
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,10 +18,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 
-data class HomeState(
-    val trendingList: List<MediaListEntry> = emptyList(),
-    val popularMovieList: List<MediaListEntry> = emptyList(),
-    val topRatedMovieList: List<MediaListEntry> = emptyList(),
+data class TvState(
+    val trendingTvList: List<MediaListEntry> = emptyList(),
+    val popularTvList: List<MediaListEntry> = emptyList(),
+    val topRatedTvList: List<MediaListEntry> = emptyList(),
     val timeWindow: TimeWindow = TimeWindow.DAY,
     val error: String? = null,
     val isLoading: Boolean = false,
@@ -27,23 +29,23 @@ data class HomeState(
 )
 
 @HiltViewModel // vou injetatar coisas aqui
-class HomeViewModel @Inject constructor(
-  private val repository: MovieRepository
+class TvViewModel @Inject constructor(
+    private val repository: MovieRepository
 ) : ViewModel() {
-    private val logTag = "HomeViewModel"
+    private val logTag = "TvViewModel"
     private val defaultErrorMessage = "Error on Load Data"
 
-    private val _state = MutableStateFlow(HomeState())
-    val state: StateFlow<HomeState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(TvState())
+    val state: StateFlow<TvState> = _state.asStateFlow()
 
     init {
         loadData()
     }
 
-    private suspend fun loadTrendingList() {
+    private suspend fun loadTrendingTvList() {
 
         val result = repository.getTrendingMediaList(
-            mediaType = "all",
+            mediaType = "tv",
             timeWindow = _state.value.timeWindow,
             page = 1,
         )
@@ -54,8 +56,7 @@ class HomeViewModel @Inject constructor(
 
                 _state.update {
                     it.copy(
-                        trendingList = it.trendingList + result.data!!.results.map { res ->
-                            Log.d(logTag, "Mapeando o filme =${res.title}")
+                        trendingTvList = it.trendingTvList + result.data!!.results.map { res ->
                             MediaListEntry(
                                 res.title ?: "",
                                 res.posterPath ?: "",
@@ -80,7 +81,7 @@ class HomeViewModel @Inject constructor(
 
 
     }
-    private suspend fun loadPopularMovieList() {
+    private suspend fun loadPopularTvList() {
         val result = repository.getPopularMovieList(
             page = 1,
         )
@@ -91,9 +92,7 @@ class HomeViewModel @Inject constructor(
 
                 _state.update {
                     it.copy(
-                        popularMovieList = it.popularMovieList + result.data!!.results.map { res ->
-
-                            Log.d(logTag, "Mapeando o filme =${res.title}")
+                        popularTvList = it.popularTvList + result.data!!.results.map { res ->
                             MediaListEntry(
                                 res.title ?: "",
                                 res.posterPath ?: "",
@@ -103,8 +102,6 @@ class HomeViewModel @Inject constructor(
                         }
                     )
                 }
-
-
             }
 
             is Resource.Error -> {

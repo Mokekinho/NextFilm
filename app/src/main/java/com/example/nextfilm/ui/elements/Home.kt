@@ -18,6 +18,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,6 +38,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.nextfilm.navigation.MovieListNav
 import com.example.nextfilm.ui.elements.details.DefaultVerticalSpacer
+import com.example.nextfilm.ui.elements.details.ErrorMessage
 import com.example.nextfilm.ui.state.HomeViewModel
 import com.example.nextfilm.ui.util.ImageBoxEntry
 import com.example.nextfilm.ui.util.MovieEntry
@@ -60,22 +62,45 @@ fun Home(
     val popularMovieList = state.popularMovieList
     val topRatedMovieList = state.topRatedMovieList
 
-    //val scrollState = rememberScrollState()
+    val isLoading = state.isLoading
+    val isLoaded = state.isLoaded
+    val error = state.error
 
-    //Tentar descobrir como scrolar isso aqui
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            //.verticalScroll(scrollState)
-    ) {
-        item {
-
-
-            val pagerState = rememberPagerState() {
-                trendingMoviesList.size
+    if(!isLoaded){
+        if(isLoading){
+            Box(
+                modifier = modifier
+                    .fillMaxSize()
+                ,
+                contentAlignment = Alignment.Center
+            ){
+                CircularProgressIndicator()
             }
+        }
+        else if(error != null){
+            ErrorMessage(
+                error,
+                onRetry = {
+                    homeViewModel.loadData()
+                }
+            )
+        }
+    }
+    else { // se os dados ja estiverem carregados
+        //Tentar descobrir como scrolar isso aqui
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
 
-            // TODO Estudar uma maneira melhor de fazer isso ficou cortando no meio em alguns
+        ) {
+            item {
+
+
+                val pagerState = rememberPagerState() {
+                    trendingMoviesList.size
+                }
+
+                // TODO Estudar uma maneira melhor de fazer isso ficou cortando no meio em alguns
 //            LaunchedEffect(pagerState.currentPage) { // o timer reinicia toda vez que muda, etão se o usario mexer timer reinicia
 //                delay(7_000)
 //
@@ -88,43 +113,43 @@ fun Home(
 //                pagerState.animateScrollToPage(nextPage)
 //            }
 
-            //Meu carrossel em tela máxima
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                HorizontalPager(
-                    pagerState,
+                //Meu carrossel em tela máxima
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        //.fillMaxHeight(0.7f) não funciona pq em Scrolls não se sabe o valor maximo
-                        .height(700.dp)
-                ) { pageIndex ->
-
-                    ImageBoxEntry(
-                        entry = trendingMoviesList[pageIndex],
-                        navController = navController,
-                    )
-                }
-                Row(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
                 ) {
-                    repeat(pagerState.pageCount) { iteration ->
-                        val color =
-                            if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
-                        Box(
-                            modifier = Modifier
-                                .padding(3.dp)
-                                .clip(CircleShape)
-                                .background(color)
-                                .size(10.dp)
+                    HorizontalPager(
+                        pagerState,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            //.fillMaxHeight(0.7f) não funciona pq em Scrolls não se sabe o valor maximo
+                            .height(700.dp)
+                    ) { pageIndex ->
+
+                        ImageBoxEntry(
+                            entry = trendingMoviesList[pageIndex],
+                            navController = navController,
                         )
+                    }
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                    ) {
+                        repeat(pagerState.pageCount) { iteration ->
+                            val color =
+                                if (pagerState.currentPage == iteration) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface
+                            Box(
+                                modifier = Modifier
+                                    .padding(3.dp)
+                                    .clip(CircleShape)
+                                    .background(color)
+                                    .size(10.dp)
+                            )
+                        }
                     }
                 }
             }
-        }
-        // Ja coloquei no carrossel, não vou por de novo
+            // Ja coloquei no carrossel, não vou por de novo
 //        item {
 //            Column(
 //                modifier = modifier //agora sim vou usar o padding que esta sendo passado
@@ -154,62 +179,63 @@ fun Home(
 //                }
 //            }
 //        }
-        item {
-            DefaultVerticalSpacer()
-            Column(
-                modifier = modifier //agora sim vou usar o padding que esta sendo passado
-                    .fillMaxSize()
-            ) {
-
-                Text(
-                    text = "Popular",
-                    style = MaterialTheme.typography.headlineMedium
-                )
-
-                LazyRow() {
-                    items(popularMovieList) {
-                        MovieEntry(
-                            entry = it,
-                            navController = navController,
-                        )
-                    }
-                }
-
-                TextButton(
-                    onClick = {
-                        //navController.navigate(MovieListNav("Trending")) //TODO, Criar a tela que carrega varios filmes populares
-                    }
+            item {
+                DefaultVerticalSpacer()
+                Column(
+                    modifier = modifier //agora sim vou usar o padding que esta sendo passado
+                        .fillMaxSize()
                 ) {
-                    Text("See All Popular Movies")
+
+                    Text(
+                        text = "Popular",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+
+                    LazyRow() {
+                        items(popularMovieList) {
+                            MovieEntry(
+                                entry = it,
+                                navController = navController,
+                            )
+                        }
+                    }
+
+                    TextButton(
+                        onClick = {
+                            //navController.navigate(MovieListNav("Trending")) //TODO, Criar a tela que carrega varios filmes populares
+                        }
+                    ) {
+                        Text("See All Popular Movies")
+                    }
                 }
             }
-        }
-        item {
-            Column(
-                modifier = modifier //agora sim vou usar o padding que esta sendo passado
-                    .fillMaxSize()
-            ) {
-
-                Text(
-                    text = "Top Rated",
-                    style = MaterialTheme.typography.headlineMedium
-                )
-
-                LazyRow() {
-                    items(topRatedMovieList) {
-                        MovieEntry(
-                            entry = it,
-                            navController = navController,
-                        )
-                    }
-                }
-
-                TextButton(
-                    onClick = {
-                        //navController.navigate(MovieListNav("Trending")) //TODO, Criar a tela que carrega varios filmes mais avaliados
-                    }
+            item {
+                Column(
+                    modifier = modifier //agora sim vou usar o padding que esta sendo passado
+                        .fillMaxSize()
                 ) {
-                    Text("See All Top Rated Movies")
+
+                    Text(
+                        text = "Top Rated",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+
+                    LazyRow() {
+                        items(topRatedMovieList) {
+                            MovieEntry(
+                                entry = it,
+                                navController = navController,
+                            )
+                        }
+                    }
+
+                    TextButton(
+                        onClick = {
+                            //navController.navigate(MovieListNav("Trending")) //TODO, Criar a tela que carrega varios filmes mais avaliados
+                        }
+                    ) {
+                        Text("See All Top Rated Movies")
+                    }
                 }
             }
         }

@@ -16,6 +16,7 @@ class MovieRepository @Inject constructor(
 ) {
     suspend fun getTrendingMediaList(
         timeWindow: TimeWindow,
+        mediaType: String,
         page: Int,
         language: String = "en-US",
     ): Resource<TrendingMovies> {
@@ -23,6 +24,7 @@ class MovieRepository @Inject constructor(
 
         val response = try {
             api.getTrendingMovieList(
+                mediaType = mediaType,
                 timeWindow = timeWindow.name.lowercase(),
                 page = page,
                 language = language,

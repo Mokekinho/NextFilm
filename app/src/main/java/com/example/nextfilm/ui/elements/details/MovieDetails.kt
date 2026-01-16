@@ -63,6 +63,8 @@ fun MovieDetails(
             Box(
                 modifier = modifier
                     .fillMaxSize()
+                ,
+                contentAlignment = Alignment.Center
             ){
                 CircularProgressIndicator()
             }
