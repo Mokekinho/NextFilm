@@ -4,12 +4,12 @@ package com.example.nextfilm.data.sources.remote
 import com.example.nextfilm.BuildConfig
 import com.example.nextfilm.data.sources.remote.responses.details.movie.MovieDetailsResponse
 import com.example.nextfilm.data.sources.remote.responses.details.tv.TvDetailsResponse
-import com.example.nextfilm.data.sources.remote.responses.entry.TrendingMovies
+import com.example.nextfilm.data.sources.remote.responses.entry.Media
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface MovieApi {
+interface NextFilmApi {
 
     //aqui a gente passa apenas o caminho mediano, a gente vai definir um caminho completo mais rpa frente, a saber, https://api.themoviedb.org/3/
     @GET("trending/{media_type}/{time_window}")
@@ -20,21 +20,35 @@ interface MovieApi {
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
     // aqui a gente tem que ficar de olho nos Query paramethers da API, no caso da que eu to usando ele sempre retorna 20 filmes por pagina, o que da pra mexer aqui é na linguagem
-    ): TrendingMovies
+    ): Media
 
     @GET("movie/popular") // tem o Tv popular também
     suspend fun getPopularMovies(
         @Query("page") page: Int,
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-    ): TrendingMovies
+    ): Media
+
+    @GET("tv/popular") // tem o Tv popular também
+    suspend fun getPopularTv(
+        @Query("page") page: Int,
+        @Query("language") language: String,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+    ): Media
 
     @GET("movie/top_rated") // tem o Tv popular também
     suspend fun getTopRatedMovies(
         @Query("page") page: Int,
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
-    ): TrendingMovies
+    ): Media
+
+    @GET("tv/top_rated") // tem o Tv popular também
+    suspend fun getTopRatedTv(
+        @Query("page") page: Int,
+        @Query("language") language: String,
+        @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
+    ): Media
 
 
     @GET("movie/{id}")

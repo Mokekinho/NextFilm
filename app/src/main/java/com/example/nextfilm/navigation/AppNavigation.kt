@@ -12,6 +12,7 @@ import androidx.navigation.toRoute
 import com.example.nextfilm.ui.MainScreen
 import com.example.nextfilm.ui.elements.Home
 import com.example.nextfilm.ui.elements.MovieListFromTopic
+import com.example.nextfilm.ui.elements.Tv
 import com.example.nextfilm.ui.elements.details.MovieDetails
 import com.example.nextfilm.ui.elements.details.TvDetails
 import kotlinx.serialization.Serializable
@@ -32,7 +33,7 @@ fun AppNavigation( //Live templates
             Home(navController, modifier)
         }
         composable<TvNav> {
-
+            Tv(navController, modifier)
         }
         composable<MovieNav> {
 

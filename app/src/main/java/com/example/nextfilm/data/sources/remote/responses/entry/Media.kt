@@ -2,7 +2,7 @@ package com.example.nextfilm.data.sources.remote.responses.entry
 
 import com.google.gson.annotations.SerializedName
 
-data class TrendingMovies(
+data class Media(
     val page: Int,
     val results: List<Result>,
     @SerializedName("total_pages") val totalPages: Int, // pra ele saber o nome certinho que vem da API

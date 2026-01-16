@@ -58,7 +58,7 @@ fun Home(
 
     val state by homeViewModel.state.collectAsStateWithLifecycle()
 
-    val trendingMoviesList = state.trendingList
+    val trendingList = state.trendingList
     val popularMovieList = state.popularMovieList
     val topRatedMovieList = state.topRatedMovieList
 
@@ -97,7 +97,7 @@ fun Home(
 
 
                 val pagerState = rememberPagerState() {
-                    trendingMoviesList.size
+                    trendingList.size
                 }
 
                 // TODO Estudar uma maneira melhor de fazer isso ficou cortando no meio em alguns
@@ -127,7 +127,7 @@ fun Home(
                     ) { pageIndex ->
 
                         ImageBoxEntry(
-                            entry = trendingMoviesList[pageIndex],
+                            entry = trendingList[pageIndex],
                             navController = navController,
                         )
                     }

@@ -3,7 +3,7 @@ package com.example.nextfilm.ui.state
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nextfilm.data.models.TvDetails
-import com.example.nextfilm.data.repository.MovieRepository
+import com.example.nextfilm.data.repository.NextFilmRepository
 import com.example.nextfilm.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -22,7 +22,7 @@ data class TvDetailsState(
 
 @HiltViewModel
 class TvDetailsViewModel @Inject constructor(
-    private val repository: MovieRepository
+    private val repository: NextFilmRepository
 ): ViewModel(){
 
     private val _state = MutableStateFlow(TvDetailsState())

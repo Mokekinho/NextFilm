@@ -3,7 +3,7 @@ package com.example.nextfilm.ui.state
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nextfilm.data.repository.MovieRepository
+import com.example.nextfilm.data.repository.NextFilmRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import com.example.nextfilm.data.models.MediaListEntry
@@ -28,7 +28,7 @@ data class HomeState(
 
 @HiltViewModel // vou injetatar coisas aqui
 class HomeViewModel @Inject constructor(
-  private val repository: MovieRepository
+  private val repository: NextFilmRepository
 ) : ViewModel() {
     private val logTag = "HomeViewModel"
     private val defaultErrorMessage = "Error on Load Data"

@@ -1,11 +1,9 @@
 package com.example.nextfilm.ui.state
 
-package com.example.nextfilm.ui.state
-
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nextfilm.data.repository.MovieRepository
+import com.example.nextfilm.data.repository.NextFilmRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import com.example.nextfilm.data.models.MediaListEntry
@@ -30,7 +28,7 @@ data class TvState(
 
 @HiltViewModel // vou injetatar coisas aqui
 class TvViewModel @Inject constructor(
-    private val repository: MovieRepository
+    private val repository: NextFilmRepository
 ) : ViewModel() {
     private val logTag = "TvViewModel"
     private val defaultErrorMessage = "Error on Load Data"
@@ -82,7 +80,7 @@ class TvViewModel @Inject constructor(
 
     }
     private suspend fun loadPopularTvList() {
-        val result = repository.getPopularMovieList(
+        val result = repository.getPopularTvList(
             page = 1,
         )
 
@@ -97,7 +95,7 @@ class TvViewModel @Inject constructor(
                                 res.title ?: "",
                                 res.posterPath ?: "",
                                 res.id,
-                                mediaType = "movie"
+                                mediaType = "tv"
                             )
                         }
                     )
@@ -112,9 +110,8 @@ class TvViewModel @Inject constructor(
 
         }
     }
-    private suspend fun loadTopRatedMovieList() {
-
-        val result = repository.getTopRatedMovieList(
+    private suspend fun loadTopRatedTvList() {
+        val result = repository.getTopRatedTvList(
             page = 1,
         )
 
@@ -124,14 +121,14 @@ class TvViewModel @Inject constructor(
 
                 _state.update {
                     it.copy(
-                        topRatedMovieList = it.topRatedMovieList + result.data!!.results.map { res ->
+                        topRatedTvList = it.topRatedTvList + result.data!!.results.map { res ->
 
                             Log.d(logTag, "Mapeando o filme =${res.title}")
                             MediaListEntry(
                                 movieName = res.title ?: "",
                                 imageUrl = res.posterPath ?: "",
                                 id = res.id,
-                                mediaType = "movie"
+                                mediaType = "tv"
                             )
                         }
                     )
@@ -160,10 +157,10 @@ class TvViewModel @Inject constructor(
                 )
             }
             try{
-                //TODO Estudar mais sobre coroutines, parece que tem como excecutar todas essas 3 funções em paralelo com o async, mas ai tem que usar o await, https://developer.android.com/kotlin/coroutines
-                loadTrendingList()
-                loadPopularMovieList()
-                loadTopRatedMovieList()
+
+                loadTrendingTvList()
+                loadPopularTvList()
+                loadTopRatedTvList()
 
                 _state.update {
                     it.copy(

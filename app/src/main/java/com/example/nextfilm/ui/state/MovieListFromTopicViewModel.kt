@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nextfilm.data.models.MediaListEntry
-import com.example.nextfilm.data.repository.MovieRepository
+import com.example.nextfilm.data.repository.NextFilmRepository
 import com.example.nextfilm.data.sources.remote.TimeWindow
 import com.example.nextfilm.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +26,7 @@ data class MovieListFromTopicState(
 
 @HiltViewModel
 class MovieListFromTopicViewModel @Inject constructor(
-    private val repository: MovieRepository
+    private val repository: NextFilmRepository
 ): ViewModel() {
 
     private var currentPage = 1
@@ -51,6 +51,7 @@ class MovieListFromTopicViewModel @Inject constructor(
                 )
             }
             val result = repository.getTrendingMediaList(
+                mediaType = "all",
                 timeWindow = _state.value.timeWindow,
                 page = currentPage,
             )
