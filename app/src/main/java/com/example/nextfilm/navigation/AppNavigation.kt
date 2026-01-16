@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.nextfilm.ui.MainScreen
 import com.example.nextfilm.ui.elements.Home
+import com.example.nextfilm.ui.elements.Movie
 import com.example.nextfilm.ui.elements.MovieListFromTopic
 import com.example.nextfilm.ui.elements.Tv
 import com.example.nextfilm.ui.elements.details.MovieDetails
@@ -36,7 +37,7 @@ fun AppNavigation( //Live templates
             Tv(navController, modifier)
         }
         composable<MovieNav> {
-
+            Movie(navController, modifier)
         }
         composable<MovieDetailsNav> {
             val args: MovieDetailsNav = it.toRoute()
