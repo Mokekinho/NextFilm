@@ -151,6 +151,12 @@ fun TvDetails(
                         modifier = Modifier
                             .fillMaxWidth(),
                         onClick = {
+                            context.startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW,
+                                    tvDetails.trailerUrl.toUri()
+                                )
+                            )
 
                         }
                     ) {
