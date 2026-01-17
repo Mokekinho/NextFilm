@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.nextfilm.data.sources.remote.responses.details.movie.Cast
+import com.example.nextfilm.ui.theme.Blue
 import com.example.nextfilm.ui.theme.Green
 import com.example.nextfilm.ui.theme.Red
 import com.example.nextfilm.ui.theme.Yellow
@@ -230,7 +231,8 @@ fun VoteAverageBox(
 
     val progress = (voteAverage / 10f).coerceIn(0f, 1f)
     val color = when{
-        voteAverage >= 7.5f -> Green
+        voteAverage >= 8.5f -> Blue
+        voteAverage >= 7f -> Green
         voteAverage >= 5f -> Yellow
         else -> Red
     }

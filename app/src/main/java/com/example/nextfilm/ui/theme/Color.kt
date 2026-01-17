@@ -19,6 +19,7 @@ val ErrorRed = Color(0xFFCF6679)
 
 
 // for the vote avareg system
+val Blue = Color(0xFF1DA1F2)
 val Green = Color(0xFF21D07A)
 val Yellow = Color(0xFFD2D531)
 val Red = Color(0xFFDB2360)

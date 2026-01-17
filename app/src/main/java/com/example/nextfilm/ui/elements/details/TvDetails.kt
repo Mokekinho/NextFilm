@@ -8,9 +8,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -37,6 +41,7 @@ import com.example.nextfilm.ui.state.MovieDetailsViewModel
 import com.example.nextfilm.ui.state.TvDetailsViewModel
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
+import com.example.nextfilm.data.sources.remote.responses.details.tv.Cast
 import com.example.nextfilm.data.sources.remote.responses.details.tv.Season
 import com.example.nextfilm.util.Constants.BASE_IMAGE_URL
 import com.example.nextfilm.util.Constants.IMAGE_FORMAT_W200
@@ -120,6 +125,15 @@ fun TvDetails(
                             text = tvDetails.firstEpisodeYear,
                             style = MaterialTheme.typography.bodyLarge
                         )
+
+                        DefaultHorizontalSpacer()
+
+                        VoteAverageBox(
+                            tvDetails.voteAverage,
+                            modifier = Modifier
+                                .size(30.dp)
+                        )
+
                         // se eu quiser colocar a data de termino
 //                Text(
 //                    text = tvDetails.firstEpisodeYear + " - " + tvDetails.lastEpisodeYear,
@@ -203,15 +217,59 @@ fun TvDetails(
 
                         }
                     }
+                    DefaultVerticalSpacer()
+                    Text(
+                        text = "Cast",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+
                 }
             }
+
+            item{
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    items(tvDetails.cast){
+                        CastCard(
+
+                            cast = com.example.nextfilm.data.sources.remote.responses.details.movie.Cast(
+                                adult = it.adult,
+                                cast_id = 0,
+                                character = it.character,
+                                credit_id = it.credit_id,
+                                gender = it.gender,
+                                id = it.id,
+                                known_for_department = it.known_for_department,
+                                name = it.name,
+                                order = it.order,
+                                original_name = it.original_name,
+                                popularity = it.popularity,
+                                profile_path = it.profile_path
+                            )
+                            ,
+                            modifier = Modifier
+                                .padding(5.dp)
+                                .width(150.dp)
+                                .height(200.dp)
+                        )
+                    }
+                }
+            }
+
             item{
                 DefaultVerticalSpacer()
+
                 // Seasons
                 Column(
                     modifier = modifier
                         .fillMaxSize()
                 ) {
+                    Text(
+                        text = "Seasons",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
 
                     tvDetails.seasons.forEach {
                         SeasonCard(it)

@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.nextfilm.data.models.TvDetails
 import com.example.nextfilm.data.repository.NextFilmRepository
+import com.example.nextfilm.data.sources.remote.responses.details.tv.ResultX
+import com.example.nextfilm.util.Constants.YOUTUBE_BASE_URL
 import com.example.nextfilm.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -58,7 +60,10 @@ class TvDetailsViewModel @Inject constructor(
                                 numberOfSeasons = data.number_of_seasons,
                                 numberOfEpisodes = data.number_of_episodes,
                                 lastEpisodeYear = null, //Todo pensar em uma forma pra caso seja null os argumentos
-                                seasons = data.seasons
+                                seasons = data.seasons,
+                                cast = data.credits.cast,
+                                voteAverage = data.vote_average.toFloat(),
+                                trailerUrl = makeTrailerUrl(data.videos.results)
                             )
                         )
                     }
@@ -76,5 +81,14 @@ class TvDetailsViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun makeTrailerUrl(
+        videos: List<ResultX>
+    ): String{
+
+        val trailer = videos.firstOrNull(){it.key.isNotEmpty()}?.key
+
+        return (YOUTUBE_BASE_URL + trailer)
     }
 }

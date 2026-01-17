@@ -214,6 +214,11 @@ fun MovieDetails(
 
                         }
                     }
+                    DefaultVerticalSpacer()
+                    Text(
+                        text = "Cast",
+                        style = MaterialTheme.typography.headlineMedium
+                    )
 
                 }
             }
