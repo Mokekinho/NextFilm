@@ -16,3 +16,9 @@ val TextSecondary = Color(0xFFB3B3B3)
 
 // Accents
 val ErrorRed = Color(0xFFCF6679)
+
+
+// for the vote avareg system
+val Green = Color(0xFF21D07A)
+val Yellow = Color(0xFFD2D531)
+val Red = Color(0xFFDB2360)

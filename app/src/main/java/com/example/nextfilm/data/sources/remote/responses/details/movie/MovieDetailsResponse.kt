@@ -1,15 +1,14 @@
 package com.example.nextfilm.data.sources.remote.responses.details.movie
 
-import com.example.nextfilm.data.sources.remote.responses.details.Genre
-import com.example.nextfilm.data.sources.remote.responses.details.ProductionCompany
-import com.example.nextfilm.data.sources.remote.responses.details.ProductionCountry
-import com.example.nextfilm.data.sources.remote.responses.details.SpokenLanguage
+import com.google.gson.annotations.SerializedName
 
 data class MovieDetailsResponse(
     val adult: Boolean,
     val backdrop_path: String,
-    val belongs_to_collection: Any,
+    val belongs_to_collection: BelongsToCollection,
     val budget: Int,
+    val credits: Credits,
+    val external_ids: ExternalIds,
     val genres: List<Genre>,
     val homepage: String,
     val id: Int,
@@ -22,14 +21,19 @@ data class MovieDetailsResponse(
     val poster_path: String,
     val production_companies: List<ProductionCompany>,
     val production_countries: List<ProductionCountry>,
+    val recommendations: Recommendations,
     val release_date: String,
-    val revenue: Long, // é a receita, por isso nao tava cabendo em um Int, avatar tem receita muito grande kkkkkkkk
+    val release_dates: ReleaseDates,
+    val revenue: Int,
+    val reviews: Reviews,
     val runtime: Int,
     val spoken_languages: List<SpokenLanguage>,
     val status: String,
     val tagline: String,
     val title: String,
     val video: Boolean,
+    val videos: Videos,
     val vote_average: Double,
-    val vote_count: Int
+    val vote_count: Int,
+    @SerializedName("watch/providers")val watchOrProviders: Watchproviders
 )

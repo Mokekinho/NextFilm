@@ -1,0 +1,6 @@
+package com.example.nextfilm.data.sources.remote.responses.details.tv
+
+data class ID(
+    val flatrate: List<Flatrate>,
+    val link: String
+)

@@ -54,6 +54,7 @@ interface NextFilmApi {
     @GET("movie/{id}")
     suspend fun getMovieDetails(
         @Path("id") id: Int,
+        @Query("append_to_response") appendToResponse: String =  "credits,videos,release_dates,recommendations,reviews,watch/providers,external_ids",
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
     ): MovieDetailsResponse
@@ -61,6 +62,7 @@ interface NextFilmApi {
     @GET("tv/{id}")
     suspend fun getTvDetails(
         @Path("id") id: Int,
+        @Query("append_to_response") appendToResponse: String = "credits,videos,content_ratings,recommendations,watch/providers,external_ids",
         @Query("language") language: String,
         @Query("api_key") apiKey: String = BuildConfig.TMDB_API_KEY,
     ): TvDetailsResponse

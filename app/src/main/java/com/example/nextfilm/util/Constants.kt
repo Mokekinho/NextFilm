@@ -6,4 +6,6 @@ object Constants {
     const val IMAGE_FORMAT_W500 = "w500"
     const val IMAGE_FORMAT_W200 = "w200"
     const val IMAGE_FORMAT_ORIGINAL = "original"
+
+    const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
 }

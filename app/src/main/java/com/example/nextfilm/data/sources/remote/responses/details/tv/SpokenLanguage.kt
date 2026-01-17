@@ -1,4 +1,4 @@
-package com.example.nextfilm.data.sources.remote.responses.details
+package com.example.nextfilm.data.sources.remote.responses.details.tv
 
 data class SpokenLanguage(
     val english_name: String,

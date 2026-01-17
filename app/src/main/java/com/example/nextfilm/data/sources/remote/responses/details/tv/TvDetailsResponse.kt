@@ -1,15 +1,15 @@
 package com.example.nextfilm.data.sources.remote.responses.details.tv
 
-import com.example.nextfilm.data.sources.remote.responses.details.Genre
-import com.example.nextfilm.data.sources.remote.responses.details.ProductionCompany
-import com.example.nextfilm.data.sources.remote.responses.details.ProductionCountry
-import com.example.nextfilm.data.sources.remote.responses.details.SpokenLanguage
+import com.google.gson.annotations.SerializedName
 
 data class TvDetailsResponse(
     val adult: Boolean,
     val backdrop_path: String,
+    val content_ratings: ContentRatings,
     val created_by: List<CreatedBy>,
-    val episode_run_time: List<Any>,
+    val credits: Credits,
+    val episode_run_time: List<Any?>,
+    val external_ids: ExternalIds,
     val first_air_date: String,
     val genres: List<Genre>,
     val homepage: String,
@@ -31,11 +31,14 @@ data class TvDetailsResponse(
     val poster_path: String,
     val production_companies: List<ProductionCompany>,
     val production_countries: List<ProductionCountry>,
+    val recommendations: Recommendations,
     val seasons: List<Season>,
     val spoken_languages: List<SpokenLanguage>,
     val status: String,
     val tagline: String,
     val type: String,
+    val videos: Videos,
     val vote_average: Double,
-    val vote_count: Int
+    val vote_count: Int,
+    @SerializedName("watch/providers")val watchOrProviders: Watchproviders
 )

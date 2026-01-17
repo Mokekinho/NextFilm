@@ -1,6 +1,6 @@
 package com.example.nextfilm.data.models
 
-import com.example.nextfilm.data.sources.remote.responses.details.Genre
+import com.example.nextfilm.data.sources.remote.responses.details.tv.Genre
 import com.example.nextfilm.data.sources.remote.responses.details.tv.Season
 
 data class TvDetails(

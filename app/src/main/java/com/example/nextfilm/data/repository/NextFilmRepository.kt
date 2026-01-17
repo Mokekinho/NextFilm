@@ -144,8 +144,8 @@ class NextFilmRepository @Inject constructor(
 
         val response = try{
             api.getMovieDetails(
-                id,
-                language
+                id = id,
+                language = language
             )
         }
         catch (e: Exception){
@@ -168,8 +168,8 @@ class NextFilmRepository @Inject constructor(
 
         val response = try{
             api.getTvDetails(
-                id,
-                language
+                id = id,
+                language = language
             )
         }
         catch (e: Exception){
